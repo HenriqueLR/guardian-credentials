@@ -1,0 +1,87 @@
+{% load staticfiles %}
+{% load formtags %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <meta name="description" content="Guardian Credentials">
+        <meta name="author" content="Henrique Luz Rodrigues">
+
+        <title>Guardian Credentials</title>
+
+        <link href="{% static 'assets/css/style.default.css' %}" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+        <script src="js/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body class="signin">
+
+
+        <section>
+
+            <div class="panel panel-signin">
+                <div class="panel-body">
+
+                    <h4 class="text-center mb5">Guardian Credentials</h4>
+                    <div class="mb30"></div>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        {% if messages %}
+                        {% for message in messages %}
+                            <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible"{% endif %} role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <strong>{{ message.tags }}:</strong> {{ message }}.
+                            </div>
+                        {% endfor %}
+                        {% endif %}
+
+                        {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                            <strong>Error: </strong>
+                            {% for field, error in form.errors.items %}
+                                {% if field != '__all__' %}{{ field }}{% endif %}
+                                {{ error | striptags }}
+                                <br />
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        <div class="input-group mb15">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-user"></i>
+                            </span>
+                            {{ form.username|placeholder:"E-mail" |addcss:"form-control" }}
+                        </div><!-- input-group -->
+                        <div class="input-group mb15">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-lock"></i>
+                            </span>
+                            {{ form.password|placeholder:"Senha" |addcss:"form-control" }}
+                        </div><!-- input-group -->
+
+                        <div class="clearfix">
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-success">Entrar
+                                    <i class="glyphicon glyphicon-log-in ml5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div><!-- panel-body -->
+            </div><!-- panel -->
+
+        </section>
+
+        <script src="{% static 'assets/js/jquery-1.11.1.min.js' %}"></script>
+        <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    </body>
+</html>

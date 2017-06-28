@@ -1,0 +1,108 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <title>Guardian Credentials</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+        <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/apple-icon.png' %}">
+        <link rel="icon" type="image/png" sizes="96x96" href="{% static 'assets/img/favicon.png' %}">
+
+        {% block styles %}
+            <link href="{% static 'assets/css/style.default.css' %}" rel="stylesheet">
+            <link href="{% static 'assets/css/morris.css' %}" rel="stylesheet">
+            <link href="{% static 'assets/css/select2.css' %}" rel="stylesheet" />
+        {% endblock %}
+
+        {% block extra_styles %}{% endblock %}
+    </head>
+
+    <body>
+        {% block navtop %}
+
+            <header>
+                <div class="headerwrapper">
+                    <div class="header-left">
+                        <a style="color:white;font-size:16px;" href="{% url 'main:home' %}" class="logo">
+                            Guardian Credentials
+                        </a>
+                        <div class="pull-right">
+                            <a href="" class="menu-collapse">
+                                <i class="fa fa-bars"></i>
+                            </a>
+                        </div>
+                    </div><!-- header-left -->
+
+                    <div class="header-right">
+                        <div class="pull-right">
+
+                            <form id="form_credential" class="form form-search" method="get">
+                                <input name="credential_filter" type="search" class="form-control" placeholder="Search" />
+                            </form>
+
+                            <div class="btn-group btn-group-option">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                  <i class="fa fa-caret-down"></i>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                  <li><a href="{% url 'accounts:logout' %}">
+                                    <i class="glyphicon glyphicon-log-out"></i>Logout</a>
+                                </li>
+                                </ul>
+                            </div><!-- btn-group -->
+
+                        </div><!-- pull-right -->
+                    </div><!-- header-right -->
+
+                </div><!-- headerwrapper -->
+            </header>
+
+        {% endblock %}
+
+        <section>
+            <div class="mainwrapper">
+                <div class="leftpanel">
+                    <div class="media profile-left">
+                        <a class="pull-left profile-thumb" href="profile.html">
+                            <img class="img-circle" src="images/photos/profile.png" alt="">
+                        </a>
+                        <div class="media-body">
+                            <h4 class="media-heading">{{ user.username }}</h4>
+                            <small class="text-muted">{{ user.email }}</small>
+                        </div>
+                    </div><!-- media -->
+
+                    <h5 class="leftpanel-title text-center">Menu</h5>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="active">
+                            <a href="{% url 'main:home' %}"><i class="glyphicon glyphicon-home"></i> <span>Home</span></a>
+                        </li>
+                    </ul>
+                </div><!-- leftpanel -->
+                {% block content %}{% endblock %}
+            </div>
+        </section>
+
+        {% block js %}
+            <script src="{% static 'assets/js/jquery-1.11.1.min.js' %}"></script>
+            <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+            <script src="{% static 'assets/js/pace.min.js' %}"></script>
+            <script src="{% static 'assets/js/custom.js' %}"></script>
+        {% endblock %}
+        {% block extra_scripts %}{% endblock %}
+
+        <script type="text/javascript">
+            $("#form_credential").bind("keypress", function(e) {
+                if (e.keyCode == 13) {
+                    $(this).submit();
+                    return false; // ignore default event
+                }
+            });
+        </script>
+
+    </body>
+
+</html>
