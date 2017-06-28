@@ -17,7 +17,41 @@
             <link href="{% static 'assets/css/select2.css' %}" rel="stylesheet" />
         {% endblock %}
 
-        {% block extra_styles %}{% endblock %}
+        {% block extra_styles %}
+            <style type="text/css">
+                .nav>li>a {
+                position: relative;
+                display: block;
+                padding: 0px 0px;
+                }
+
+                .leftpanel .profile-left {
+                padding: 10px;
+                min-height: 0px;
+                background-color: #fff;
+                border-bottom: 1px solid #eee;
+                -webkit-box-shadow: 0 2px 3px rgba(0,0,0,0.03);
+                box-shadow: 0 2px 3px rgba(0,0,0,0.03);
+                margin-right: 1px;
+                }
+                .leftpanel .profile-left .profile-thumb {
+                -moz-border-radius: 50px;
+                -webkit-border-radius: 50px;
+                border-radius: 50px;
+                display: inline-block;
+                border: 0px solid #5cb85c;
+                padding: 12px 17px 0px 6px;
+                }
+                .pageheader {
+                    padding: 20px;
+                    border-bottom: 1px solid #eee;
+                    padding-bottom: 20px;
+                    height: 69px;
+                    -webkit-box-shadow: 0 2px 3px rgba(0,0,0,0.03);
+                    box-shadow: 0 2px 3px rgba(0,0,0,0.03);
+                }
+            </style>
+        {% endblock %}
     </head>
 
     <body>
@@ -31,7 +65,7 @@
                         </a>
                         <div class="pull-right">
                             <a href="" class="menu-collapse">
-                                <i class="fa fa-bars"></i>
+                                <i class="glyphicon glyphicon-align-justify"></i>
                             </a>
                         </div>
                     </div><!-- header-left -->
@@ -40,12 +74,12 @@
                         <div class="pull-right">
 
                             <form id="form_credential" class="form form-search" method="get">
-                                <input name="credential_filter" type="search" class="form-control" placeholder="Search" />
+                                <input value="{% if request.GET.credential_filter %}{{ request.GET.credential_filter }}{% endif %}" name="credential_filter" type="search" class="form-control" placeholder="Search" />
                             </form>
 
                             <div class="btn-group btn-group-option">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                  <i class="fa fa-caret-down"></i>
+                                  <i class="glyphicon glyphicon-chevron-down"></i>
                                 </button>
                                 <ul class="dropdown-menu pull-right" role="menu">
                                   <li><a href="{% url 'accounts:logout' %}">
@@ -66,8 +100,8 @@
             <div class="mainwrapper">
                 <div class="leftpanel">
                     <div class="media profile-left">
-                        <a class="pull-left profile-thumb" href="profile.html">
-                            <img class="img-circle" src="images/photos/profile.png" alt="">
+                        <a class="pull-left profile-thumb" href="{% url 'main:home' %}">
+                            <img src="{% static 'assets/images/photos/opa.jpg' %}" alt="">
                         </a>
                         <div class="media-body">
                             <h4 class="media-heading">{{ user.username }}</h4>
@@ -75,7 +109,7 @@
                         </div>
                     </div><!-- media -->
 
-                    <h5 class="leftpanel-title text-center">Menu</h5>
+                    <h5 class="leftpanel-title">Menu</h5>
                     <ul class="nav nav-pills nav-stacked">
                         <li class="active">
                             <a href="{% url 'main:home' %}"><i class="glyphicon glyphicon-home"></i> <span>Home</span></a>

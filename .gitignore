@@ -7,6 +7,7 @@
 *.sqlite3
 *.tmp
 *.log
+*.ini
 __pycache__
 static_files/
 migrations/

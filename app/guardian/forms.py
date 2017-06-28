@@ -1,3 +1,5 @@
+#coding: utf-8
+
 from django import forms
 from guardian.models import Credentials
 
@@ -7,7 +9,7 @@ class CredentialsForm(forms.ModelForm):
 
 	class Meta:
 		model = Credentials
-		fields = ["name", "url", "password"]
+		fields = ["name", "url", "password", "description"]
 		widgets = {
 			'name':forms.TextInput(attrs = {'placeholder': 'Name', 'class': 'form-control'}),
 			'url':forms.TextInput(attrs = {'placeholder': 'Url', 'class': 'form-control'}),
